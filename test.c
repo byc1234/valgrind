@@ -1,10 +1,14 @@
   #include <stdlib.h>
-  #include <unistd.h>
-  int main( void )
+
+  void f(void)
   {
-    char* arr  = malloc(10);
-    int*  arr2 = malloc(sizeof(int));
-    write( 1 /* stdout */, arr, 10 );
-    exit(arr2[0]);
+     int* x = malloc(10 * sizeof(int));
+     x[10] = 0;        // problem 1: heap block overrun
+  }                    // problem 2: memory leak -- x not freed
+
+  int main(void)
+  {
+     f();
+     return 0;
   }
 
